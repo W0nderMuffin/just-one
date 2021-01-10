@@ -1,12 +1,8 @@
 # just one!
 
-a web app for playing [just one](https://boardgamegeek.com/boardgame/254640/just-one), a cooperative party word game. hosted on https://just1.herokuapp.com/.
+a web app for playing [just one](https://boardgamegeek.com/boardgame/254640/just-one), a cooperative party word game. 
 
-![](sample.png)
-
-in each round, the guesser is trying to guess a word. everyone not guessing writes a single-word clue. then everyone compares clues, and hides clues that are the same. they show the clues to the guesser, who then tries to guess the word.
-
-you can join room example by going directly to https://just1.herokuapp.com/room/example. if you don’t type a name when prompted, you spectate the room.
+forked from [cjquines](https://github.com/cjquines/just-one).
 
 ## implementation details
 
@@ -18,7 +14,18 @@ server uses express and socket.io; frontend uses react.
 
 run `npm install`. development runs on two servers, one for the socket, and one for the client. running `npm start` starts the socket server, and running `npm run hotloader` starts the client server.
 
-you will need a wordlist. the server [Room.js](server/Room.js) assumes you have a wordlist in the same folder named `beta.json`. this wordlist should contain one object with the key `words`, and value an array of a list of strings.
+you will need a wordlist. the server [Room.js](server/Room.js) assumes you have a wordlist in the same folder named `words.json`. this wordlist should contain one object with the key `words`, and value an array of a list of strings.
+
+## Docker
+This will create an image with the server and the client in production mode as one container and expose port 4001.
+
+```bash
+# Build image
+docker build -t myName/just-one .
+
+# Run container e.g.
+docker run --rm -d -p 4001:4001 myName/just-one
+```
 
 ### todo
 

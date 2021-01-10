@@ -1,4 +1,4 @@
-const words = require("./beta.json")["words"];
+const words = require("./words.json")["words"];
 
 function randRange(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;

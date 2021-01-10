@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { navigate } from "@reach/router";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import update from "immutability-helper";
 
 import Action from "./Action.js";
@@ -25,7 +25,8 @@ class Room extends Component {
 
   componentDidMount() {
     const port = process.env.NODE_ENV === "production" ? window.location.port : 4001;
-    const socket = socketIOClient(window.location.hostname + ":" + port);
+    const socketUrl = window.location.hostname + ":" + port;
+    const socket = io(socketUrl, {path: '/just-one/socket.io'});
     this.socket = socket;
     this.joinRoom(this.props.roomName);
 

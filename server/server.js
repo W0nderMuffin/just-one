@@ -11,7 +11,7 @@ app.get("*", (req, res) => {
 });
 
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {path: '/just-one/socket.io'});
 
 let clients = {};
 let rooms = {};
