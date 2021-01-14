@@ -16,6 +16,12 @@ run `npm install`. development runs on two servers, one for the socket, and one 
 
 you will need a wordlist. the server [Room.js](server/Room.js) assumes you have a wordlist in the same folder named `words.json`. this wordlist should contain one object with the key `words`, and value an array of a list of strings.
 
+## Read words from Google sheets
+If you want to use a google sheet as words source then you have to create a google spreadsheet with 1 column with column headername `word`. In each row you can put you word.
+
+Make sure to publish the document to the web. And get the shared id of the google sheet. You'll find it by copying the sharable link of the sheet, e.g. `https://docs.google.com/spreadsheets/d/my-sheet-id/edit?usp=sharing`. In this case the id is `my-sheet-id`.
+
+Set the `sheetid` in the `server/config.json` file and start the server ;)
 ## Docker
 This will create an image with the server and the client in production mode as one container and expose port 4001.
 
@@ -26,11 +32,6 @@ docker build -t myName/just-one .
 # Run container e.g.
 docker run --rm -d -p 4001:4001 myName/just-one
 ```
-
-## Read words from Google sheets
-If you want to use a google sheet as words source then you have to create a google spreadsheet with 1 column with column headername `word`. In each row you can put you word.
-
-Make sure to publish the document to the web. And get the shared id of the google sheet. You'll find it by copying the sharable link of the sheet, e.g. `https://docs.google.com/spreadsheets/d/my-sheet-id/edit?usp=sharing`. In this case the id is `my-sheet-id`.
 
 ### todo
 
