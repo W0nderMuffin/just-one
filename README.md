@@ -27,6 +27,11 @@ docker build -t myName/just-one .
 docker run --rm -d -p 4001:4001 myName/just-one
 ```
 
+## Read words from Google sheets
+If you want to use a google sheet as words source then you have to create a google spreadsheet with 1 column with column headername `word`. In each row you can put you word.
+
+Make sure to publish the document to the web. And get the shared id of the google sheet. You'll find it by copying the sharable link of the sheet, e.g. `https://docs.google.com/spreadsheets/d/my-sheet-id/edit?usp=sharing`. In this case the id is `my-sheet-id`.
+
 ### todo
 
 - sanitize names, clues, and guesses?

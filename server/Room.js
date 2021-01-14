@@ -1,4 +1,23 @@
-const words = require("./words.json")["words"];
+const wordsFallback = require("./words.json")["words"];
+const config = require("./config.json");
+const reader = require('g-sheets-api');
+let words = [];
+
+const readerOptions = {
+  sheetId: config.sheetid,
+  sheetNumber: 1,
+  returnAllResults: false
+}
+
+reader(readerOptions, (results) => {
+  results.forEach(element => {
+    words.push(element.word);
+  });
+  console.log("Words read from Google sheet!")
+}, error => {
+  console.log("Error while retrieving words from Google sheet... fallback to words.json list")
+  words = wordsFallback;
+});
 
 function randRange(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -13,7 +32,7 @@ class Room {
   constructor(io, roomName) {
     this.io = io;
     this.roomName = roomName;
-    
+
     this.roundId = 0;
     this.correct = 0;
     this.wrong = 0;
@@ -75,7 +94,7 @@ class Room {
 
   kickPlayer(name) {
     if (!(name in this.players)) return false;
-    
+
     this.io.to(this.players[name].id).emit("phase", "disconnected");
     if (name === this.activePlayer) this.startPhase("clue");
     this.playerOrder = this.playerOrder.filter(name_ => name_ !== name);
@@ -119,8 +138,8 @@ class Room {
 
   blindClues() {
     const newClues = Object.fromEntries(
-      Object.entries(this.clues).map(([name, {clue, visible}]) => 
-        [name, {clue: Boolean(clue), visible: visible}]
+      Object.entries(this.clues).map(([name, { clue, visible }]) =>
+        [name, { clue: Boolean(clue), visible: visible }]
       )
     );
     return newClues;
@@ -128,8 +147,8 @@ class Room {
 
   hiddenClues() {
     return Object.fromEntries(
-      Object.entries(this.clues).map(([name, {clue, visible}]) => 
-        [name, {clue: visible && clue, visible: visible}]
+      Object.entries(this.clues).map(([name, { clue, visible }]) =>
+        [name, { clue: visible && clue, visible: visible }]
       )
     );
   }
