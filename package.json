@@ -7,13 +7,11 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
+    "g-sheets-api": "^1.4.1",
     "socket.io": "^2.3.0"
   },
   "scripts": {
     "start": "node server/server.js",
     "hotloader": "cd client && npm start"
-  },
-  "devDependencies": {
-    "g-sheets-api": "^1.4.1"
   }
 }
